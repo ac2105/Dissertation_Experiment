@@ -1,43 +1,64 @@
 import pandas as pd
 import os
+import csv
+from tqdm import tqdm
 
-#Folder with the csv datasets
-csv_folder=r'C:\Users\Janshrut\Desktop\Sem2\datasets'
-
-#List of csv files containing the datasets
-csv_files=['benign_permissionsSet1.csv', 'benign_permissionsSet2.csv', 
+csv_folder = r'C:\Users\Janshrut\Desktop\Sem2\datasets'
+output_path = r'C:\Users\Janshrut\Desktop\Sem2\master_permission_matrix.csv'
+csv_files = [
+    'benign_permissionsSet1.csv', 'benign_permissionsSet2.csv', 
     'benign_permissionsSet3.csv', 'benign_permissionsSet4.csv',
-    'malware_permissionsSet1.csv', 'malware_permissionsSet2.csv']
+    'malware_permissionsSet1.csv', 'malware_permissionsSet2.csv'
+]
 
-all_permissions=[]
-
-for filename in csv_files:
-    file_path=os.path.join(csv_folder,filename)
-    
+# Phase 1: Scan headers
+print("Phase 1: Scanning headers...")
+all_permissions = set()
+found_files = []
+for file_name in csv_files:
+    file_path = os.path.join(csv_folder, file_name)
     if os.path.exists(file_path):
-        #Read only the header to get permission names quickly
-        df_temp=pd.read_csv(file_path,nrows=0)
+        found_files.append(file_path)
+        with open(file_path, 'r', encoding='utf-8') as f:
+            header = next(csv.reader(f))
+            perms = [c for c in header if c not in ['App_Name', 'applications', 'label', 'Unnamed: 0']]
+            all_permissions.update(perms)
+
+sorted_perms = sorted(list(all_permissions))
+final_columns = ['applications'] + sorted_perms + ['label']
+print(f"Total unique permissions: {len(sorted_perms)}")
+
+# Phase 2: Writing with Progress Bar
+print("Phase 2: Building Master Matrix...")
+with open(output_path, 'w', newline='', encoding='utf-8') as f_out:
+    writer = csv.DictWriter(f_out, fieldnames=final_columns)
+    writer.writeheader()
+
+    for file_path in found_files:
+        file_name = os.path.basename(file_path)
+        label = 1 if 'malware' in file_name.lower() else 0
         
-        #Get all columns except the index 'App_Name'
-        permissions=[col for col in df_temp.columns if col != 'App_Name']
+        # Count rows for the progress bar
+        num_rows = sum(1 for _ in open(file_path, 'r', encoding='utf-8', errors='ignore')) - 1
         
-        #Determine label based on filename
-        label='malware' if 'malware' in filename.lower() else 'benign'
-        
-        for perm in permissions:
-            all_permissions.append({'Permission':perm, 'Type':label})
-    else:
-        print(f"Warning: {filename} not found.")
+        # Use DictReader for speed and lower memory overhead
+        with open(file_path, 'r', encoding='utf-8', errors='ignore') as f_in:
+            reader = csv.DictReader(f_in)
+            
+            # This bar shows you exactly how fast it's moving
+            for row in tqdm(reader, total=num_rows, desc=f"Processing {file_name}"):
+                # 1. Start with a row of zeros
+                output_row = {col: 0 for col in sorted_perms}
+                
+                # 2. Add application name and label
+                output_row['applications'] = row.get('App_Name') or row.get('applications')
+                output_row['label'] = label
+                
+                # 3. Only flip the '1's for permissions actually present
+                for key, value in row.items():
+                    if key in output_row and value == '1':
+                        output_row[key] = 1
+                
+                writer.writerow(output_row)
 
-# Create a DataFrame and remove duplicates
-final_df = pd.DataFrame(all_permissions).drop_duplicates()
-
-# Sort by Permission name for readability
-final_df = final_df.sort_values(by=['Permission', 'Type'])
-
-#Save the common permissions list
-output_path=os.path.join(csv_folder,'common_permissions_labeled.csv')
-final_df.to_csv(output_path,index=False)
-
-print(f"Success! Labeled common permissions saved to: {output_path}")
-print(final_df.head())
+print(f"\n✅ Done! Master file saved at: {output_path}")
