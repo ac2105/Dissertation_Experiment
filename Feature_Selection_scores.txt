@@ -1,0 +1,27 @@
+==================================================
+TOP 10 MALWARE PREDICTORS (Chi-Square)
+                             Permission    Chi2_Score
+2795          MOUNT_UNMOUNT_FILESYSTEMS  29561.868501
+1921                          GET_TASKS  26797.002890
+3558                   READ_PHONE_STATE  21941.480911
+1227                  CHANGE_WIFI_STATE  19630.278870
+3495                          READ_LOGS  19620.855361
+4516                SYSTEM_ALERT_WINDOW  19332.870249
+1210               CHANGE_NETWORK_STATE  17472.014711
+860   BIND_GET_INSTALL_REFERRER_SERVICE  16389.504700
+3846               RECEIVE_USER_PRESENT  13395.226970
+5307                     WRITE_SETTINGS  11986.220191
+
+==================================================
+TOP 10 MALWARE PREDICTORS (Pearson Correlation)
+                     Permission  Pearson_Corr
+3558           READ_PHONE_STATE      0.696698
+1921                  GET_TASKS      0.659451
+2795  MOUNT_UNMOUNT_FILESYSTEMS      0.658487
+1227          CHANGE_WIFI_STATE      0.558270
+4516        SYSTEM_ALERT_WINDOW      0.549121
+3495                  READ_LOGS      0.511173
+1210       CHANGE_NETWORK_STATE      0.489539
+5307             WRITE_SETTINGS      0.442304
+3846       RECEIVE_USER_PRESENT      0.402989
+138      ACCESS_COARSE_LOCATION      0.395384
