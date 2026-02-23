@@ -9,7 +9,7 @@ from sklearn.feature_selection import SelectKBest, chi2
 import os
 
 # Path to your standardized master matrix
-file_path = r'C:\Users\Janshrut\Desktop\Sem2\master_permission_matrix_OFFICIAL.csv'
+file_path = r'C:\Users\Janshrut\Desktop\Sem2\master_permission_matrix_FINAL.csv'
 graph_output = r'C:\Users\Janshrut\Desktop\Sem2\feature_selection_comparison.png'
 
 def run_feature_iterations():
@@ -84,7 +84,7 @@ def run_feature_iterations():
     plt.figure(figsize=(14, 8))
     plt.plot(ks, results['Chi2_RF'], color='red', label='Chi2 + Random Forest')
     plt.plot(ks, results['Chi2_DT'], color='blue', label='Chi2 + Decision Tree')
-    plt.plot(ks, results['Pearson_RF'], color='orange', label='Pearson + Random Forest')
+    plt.plot(ks, results['Pearson_RF'], color='green', label='Pearson + Random Forest')
     plt.plot(ks, results['Pearson_DT'], color='purple', label='Pearson + Decision Tree')
 
     plt.title('Accuracy vs Number of Permissions (Constant Features Removed)')
