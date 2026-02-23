@@ -5,7 +5,7 @@ from scipy.sparse import csr_matrix
 import os
 
 # Path to your cleaned master file
-file_path = r'C:\Users\Janshrut\Desktop\Sem2\master_permission_matrix_CLEAN.csv'
+file_path = r'C:\Users\Janshrut\Desktop\Sem2\master_permission_matrix_FINAL.csv'
 
 def feature_selection_sparse(top_k=20):
     print("Loading dataset...")
@@ -66,4 +66,5 @@ print(results.sort_values(by='Chi2_Score', ascending=False)[['Permission', 'Chi2
 print("\n" + "="*50)
 print("TOP 10 MALWARE PREDICTORS (Pearson Correlation)")
 # Positive correlation = Malware indicator, Negative = Benign indicator
+
 print(results.sort_values(by='Pearson_Corr', ascending=False)[['Permission', 'Pearson_Corr']].head(10))
