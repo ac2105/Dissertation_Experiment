@@ -1,27 +1,7 @@
-==================================================
-TOP 10 MALWARE PREDICTORS (Chi-Square)
-                                            Permission    Chi2_Score
-89        android.permission.MOUNT_UNMOUNT_FILESYSTEMS  29556.405776
-72                        android.permission.GET_TASKS  26795.268117
-155                  android.permission.WRITE_SETTINGS  22185.813624
-107                android.permission.READ_PHONE_STATE  21977.904390
-102                       android.permission.READ_LOGS  19633.372031
-57                android.permission.CHANGE_WIFI_STATE  19627.192208
-139             android.permission.SYSTEM_ALERT_WINDOW  19331.626558
-55             android.permission.CHANGE_NETWORK_STATE  17469.392663
-127                        android.permission.SEND_SMS  10827.553801
-5    android.permission.ACCESS_LOCATION_EXTRA_COMMANDS  10792.648798
-
-==================================================
-TOP 10 MALWARE PREDICTORS (Pearson Correlation)
-                                       Permission  Pearson_Corr
-107           android.permission.READ_PHONE_STATE      0.696983
-72                   android.permission.GET_TASKS      0.659392
-89   android.permission.MOUNT_UNMOUNT_FILESYSTEMS      0.658407
-155             android.permission.WRITE_SETTINGS      0.572656
-57           android.permission.CHANGE_WIFI_STATE      0.558169
-139        android.permission.SYSTEM_ALERT_WINDOW      0.549099
-102                  android.permission.READ_LOGS      0.511220
-55        android.permission.CHANGE_NETWORK_STATE      0.489495
-3       android.permission.ACCESS_COARSE_LOCATION      0.395432
-9            android.permission.ACCESS_WIFI_STATE      0.386878
+============================================================
+      FINAL COMPARISON TABLE (ALL VALIDATED FEATURES)
+============================================================
+    Algorithm  Accuracy  Precision  Recall  F1-Score
+Random Forest    0.9389     0.9428  0.9103    0.9263
+Decision Tree    0.9232     0.9281  0.8864    0.9068
+------------------------------------------------------------
