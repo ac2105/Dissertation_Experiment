@@ -24,7 +24,7 @@ The experiment involves:
 | `Condensed_permissions.py` | Handles dataset de-duplication and permission condensing |
 | `dataset_Valid.py` | Validates the dataset |
 | `Numerical_Datatable_FS.py` | Prepares numerical datatable for feature selection |
-| `feature_selection.py` | Runs feature selection and outputs importance scores |
+| `feature_selection.py` | Runs feature selection and outputs importance scores to build the malware Fingerprint |
 | `feature_selection_Graph.py` | Generates visualisations of feature selection results |
 | `machine_learning_table.py` | Trains RF and DT models and generates comparison tables |
 
