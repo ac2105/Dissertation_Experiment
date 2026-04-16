@@ -64,6 +64,7 @@ The experiment involves:
    ```bash
    python Dataset_DF.py
    python Condensed_permissions.py
+   python dataset_Valid.py
    ```
 
 4. **Run feature selection**
@@ -75,7 +76,6 @@ The experiment involves:
 
 5. **Train and evaluate models**
    ```bash
-   python dataset_Valid.py
    python machine_learning_table.py
    ```
 
